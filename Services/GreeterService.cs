@@ -16,10 +16,11 @@ public class GreeterService : Greeter.GreeterBase
             Apellido = request.Apellido
         });
         reservaContext.SaveChanges();
+        Console.WriteLine($"Cliente {request.Nombre} {request.Apellido} agregado correctamente!");
 
         return Task.FromResult(new AgregarReply
         {
-            Message = "Cliente agregado correctamente!"
+            Message = $"Cliente {request.Nombre} {request.Apellido} agregado correctamente!"
         });
     }
 }
