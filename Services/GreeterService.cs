@@ -8,10 +8,18 @@ public class GreeterService : Greeter.GreeterBase
     // Agregar Cliente by Nico
     public override Task<AgregarReply> AgregarCliente(AgregarRequest request, ServerCallContext context)
     {
-         // Aquí se puede agregar la lógica para agregar el cliente a la base de datos
-         return Task.FromResult(new AgregarReply
-         {
-             Message = "Cliente added successfully!"
-         });
-     }
+        ReservasContext reservaContext = new();
+        reservaContext.Clientes.Add(new Cliente
+        {
+            Rut = int.Parse(request.Rut),
+            Nombre = request.Nombre,
+            Apellido = request.Apellido
+        });
+        reservaContext.SaveChanges();
+
+        return Task.FromResult(new AgregarReply
+        {
+            Message = "Cliente agregado correctamente!"
+        });
+    }
 }
